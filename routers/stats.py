@@ -1,5 +1,3 @@
-# routers/stats.py
-
 from fastapi import APIRouter, status, Query
 from fastapi.responses import JSONResponse
 from typing import Optional
