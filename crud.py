@@ -1,5 +1,3 @@
-# crud.py
-
 from typing import Any, Dict, List, Optional
 import asyncpg
 
@@ -19,8 +17,6 @@ async def get_all_persons(conn: asyncpg.Pool, table: str) -> List[Dict[str, Any]
     rows = await conn.fetch(query)
     return [dict(row) for row in rows]
 
-# -------------------- LECTURA GENERAL --------------------
-
 async def get_all(conn: asyncpg.Pool, table: str) -> List[Dict[str, Any]]:
     """
     Recupera todas las filas de cualquier tabla (ordenadas por id).
@@ -36,8 +32,6 @@ async def get_by_id(conn: asyncpg.Pool, table: str, id: int) -> Optional[Dict[st
     query = f"SELECT * FROM {table} WHERE id = $1"
     row = await conn.fetchrow(query, id)
     return dict(row) if row else None
-
-# -------------------- INSERCIÓN --------------------
 
 async def insert_one(
     conn: asyncpg.Pool,
@@ -59,8 +53,6 @@ async def insert_one(
     row = await conn.fetchrow(query, *values)
     return dict(row)
 
-# ------------------ ACTUALIZACIÓN ------------------
-
 async def update_by_id(
     conn: asyncpg.Pool,
     table: str,
@@ -80,8 +72,6 @@ async def update_by_id(
     )
     row = await conn.fetchrow(query, *values)
     return dict(row) if row else None
-
-# ------------------- ELIMINACIÓN -------------------
 
 async def delete_by_id(conn: asyncpg.Pool, table: str, id: int) -> str:
     """
