@@ -10,10 +10,6 @@ from routers.species import router as species_router     # Especies
 from routers.strata import router as strata_router       # Estratos sociales
 from routers.stats import router as stats_router         # Estadísticas
 
-# ───────────────────────────────────────────────────────────────────────────────
-# 1. INSTANCIACIÓN DE LA APLICACIÓN
-# ───────────────────────────────────────────────────────────────────────────────
-
 # Se crea una instancia de FastAPI que representa nuestra aplicación principal.
 # Aquí se definen metadatos como el título, la descripción y la versión, que se
 # mostrarán automáticamente en la documentación Swagger (OpenAPI).
@@ -26,10 +22,6 @@ app = FastAPI(
     ),
     version="1.0.0",
 )
-
-# ───────────────────────────────────────────────────────────────────────────────
-# 2. EVENTOS DE CICLO DE VIDA (STARTUP Y SHUTDOWN)
-# ───────────────────────────────────────────────────────────────────────────────
 
 # Al iniciar la aplicación (startup), se establece la conexión a la base de datos
 # utilizando un pool de conexiones asíncrono definido en el módulo `database`.
@@ -45,10 +37,6 @@ async def on_shutdown():
     """Cierra el pool de conexiones al detener la aplicación."""
     await db.disconnect()
 
-# ───────────────────────────────────────────────────────────────────────────────
-# 3. INCLUSIÓN DE ROUters
-# ───────────────────────────────────────────────────────────────────────────────
-
 # Montamos los routers que agrupan las rutas según la lógica de negocio.
 # No se define aquí ni el `prefix` ni los `tags`, ya que están contenidos
 # directamente en los archivos de cada router.
@@ -57,9 +45,6 @@ app.include_router(species_router)   # Endpoints relacionados con especies
 app.include_router(strata_router)    # Endpoints relacionados con estratos sociales
 app.include_router(stats_router)     # Endpoints relacionados con estadísticas
 
-# ───────────────────────────────────────────────────────────────────────────────
-# 4. RUTA RAÍZ DE LA API
-# ───────────────────────────────────────────────────────────────────────────────
 
 # Define la ruta principal de la API, que responde a solicitudes GET en "/".
 # Sirve como punto de bienvenida y verificación básica del funcionamiento del backend.
